@@ -1,7 +1,7 @@
 {
 	"name": "comment-rulers",
 	"displayName": "Comment Rulers",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters. The extension adds a red line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length. With CommentRulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.",
 	"categories": [
 		"Visualization"

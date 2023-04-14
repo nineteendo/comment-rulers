@@ -35,6 +35,10 @@ None... yet
 
 Initial release of Comment Rulers
 
+### 1.0.1 (Apr 14. 2023)
+
+Fixed Multi-line comments are messed up
+
 ---
 
 **Enjoy!**
