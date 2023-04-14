@@ -1,0 +1,97 @@
+{
+	"name": "comment-rulers",
+	"displayName": "Comment Rulers",
+	"version": "1.0.0",
+	"description": "Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters. The extension adds a red line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length. With CommentRulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.",
+	"categories": [
+		"Visualization"
+	],
+	"homepage": "https://github.com/Nineteendo/comment-rulers#readme",
+	"bugs": {
+		"url" : "https://github.com/Nineteendo/comment-rulers/issues",
+		"email" : "nineteendo19d0@gmail.com"
+	},
+	"license": "GPL-3.0",
+	"author": {
+		"name" : "Nineteendo",
+		"email" : "nineteendo19d0@gmail.com",
+		"url" : "https://github.com/Nineteendo/"
+	},
+	"funding": {
+		"type": "individual",
+		"url": "https://www.paypal.com/paypalme/nineteendo"
+	},
+	"main": "./out/extension.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Nineteendo/comment-rulers"
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.73.1",
+		"@types/glob": "^8.1.0",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "16.x",
+		"@typescript-eslint/eslint-plugin": "^5.56.0",
+		"@typescript-eslint/parser": "^5.56.0",
+		"eslint": "^8.36.0",
+		"glob": "^8.1.0",
+		"mocha": "^10.2.0",
+		"typescript": "^4.9.5",
+		"@vscode/test-electron": "^2.3.0"
+	},
+	"engines": {
+		"vscode": "^1.73.1"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"contributes": {
+		"configuration": {
+			"title": "Comment Rulers",
+			"properties": {
+				"comment-rulers.enabled": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable/disable Comment Rulers.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.maxCommentLineLength": {
+					"type": "number",
+					"default": 80,
+					"description": "The maximum length of a comment line.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.multiLineCommentStrings": {
+					"type": "object",
+					"default": {
+						"/*": "*/"
+					},
+					"description": "The start and end strings for multi-line comments.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.singleLineCommentStrings": {
+					"type": "array",
+					"default": [
+						"//"
+					],
+					"description": "The strings that denote a single-line comment.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.style": {
+					"type": "string",
+					"default": "1px solid green",
+					"description": "The CSS style for the Comment Rulers.",
+					"scope": "language-overridable"
+				}
+			}
+		}
+	}
+}
