@@ -58,6 +58,12 @@
 		"configuration": {
 			"title": "Comment Rulers",
 			"properties": {
+				"comment-rulers.emPerChar": {
+					"type": "number",
+					"default": 0.55,
+					"description": "The number of em units per character (BREAKS THE LAYOUT IF SET INCORRECTLY).",
+					"scope": "language-overridable"
+				},
 				"comment-rulers.enabled": {
 					"type": "boolean",
 					"default": false,

@@ -8,7 +8,7 @@ With Comment Rulers, you can ensure that your comments are concise and easy to r
 
 ## Features
 
-\!\[features\]\(videos/features.gif\)
+![features](videos/Features.gif)
 
 ## Requirements
 
@@ -18,6 +18,7 @@ None
 
 This extension contributes the following settings:
 
+* `comment-rulers.emPerChar`: The number of em units per character (BREAKS THE LAYOUT IF SET INCORRECTLY).
 * `comment-rulers.enabled`: Enable/disable Comment Rulers.
 * `comment-rulers.maxCommentLineLength`: The maximum length of a comment line.
 * `comment-rulers.multiLineCommentStrings`: The start and end strings for multi-line comments.
