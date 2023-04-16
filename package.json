@@ -1,7 +1,7 @@
 {
 	"name": "comment-rulers",
 	"displayName": "Comment Rulers",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters. The extension adds a red line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length. With CommentRulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.",
 	"categories": [
 		"Visualization"
@@ -11,7 +11,7 @@
 		"url": "https://github.com/Nineteendo/comment-rulers/issues",
 		"email": "nineteendo19d0@gmail.com"
 	},
-	"license": "GPL-3.0",
+	"license": "AGPL-3.0",
 	"author": {
 		"name": "Nineteendo",
 		"email": "nineteendo19d0@gmail.com",
@@ -81,7 +81,7 @@
 				"comment-rulers.color": {
 					"type": "string",
 					"default": "transparent",
-					"description": "The color of the underscores to move the ruler.",
+					"description": "The color of the placeholder to move the ruler.",
 					"scope": "language-overridable"
 				},
 				"comment-rulers.enabled": {
@@ -114,6 +114,12 @@
 					"type": "array",
 					"default": [],
 					"description": "The delimiters for multi-line strings (to ingore included comment delimiters).",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.placeholder": {
+					"type": "string",
+					"default": "_",
+					"description": "The placeholder character to move the ruler (CANT BE A SPACE).",
 					"scope": "language-overridable"
 				},
 				"comment-rulers.singleLineStringDelimiters": {

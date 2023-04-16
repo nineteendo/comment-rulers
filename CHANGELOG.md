@@ -24,3 +24,8 @@ All notable changes to the "comment-rulers" extension will be documented in this
 - Removed backtick from singleLineStringDelimiters
 - Added green background color to rulers (color can be modified)
 - Renamed style to border
+
+### 1.0.4 (Apr 16. 2023)
+
+- Fixed that block comments can be started by part of the second delimiter
+- Made placeholder configurable

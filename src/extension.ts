@@ -18,6 +18,7 @@ const ESCAPABLE_CHARS = "\\\"'";
 const INLINE_COMMENT_DELIMTERS: string[] = ["//"];
 const MAX_COMMENT_LINE_LENGTH = 80;
 const MULTI_LINE_STRING_DELIMITERS: string[] = [];
+const PLACEHOLDER = "_";
 const SINGLE_LINE_STRING_DELIMITERS: string[] = ['"', "'"];
 
 // Global settings
@@ -30,6 +31,7 @@ let escapableChars = ESCAPABLE_CHARS;
 let inlineCommentDelimiters = INLINE_COMMENT_DELIMTERS;
 let maxCommentLineLength = MAX_COMMENT_LINE_LENGTH;
 let multiLineStringDelimiters = MULTI_LINE_STRING_DELIMITERS;
+let placeholder = PLACEHOLDER;
 let singleLineStringDelimiters = SINGLE_LINE_STRING_DELIMITERS;
 
 // Comment status
@@ -56,6 +58,7 @@ function updateSettings(languageId: string) {
 		inlineCommentDelimiters = getConfig<string[]>('inlineCommentDelimiters', INLINE_COMMENT_DELIMTERS);
 		maxCommentLineLength = getConfig<number>('maxCommentLineLength', MAX_COMMENT_LINE_LENGTH);
 		multiLineStringDelimiters = getConfig<string[]>('multiLineStringDelimiters', MULTI_LINE_STRING_DELIMITERS);
+		placeholder = getConfig<string>('placeholder', PLACEHOLDER);
 		singleLineStringDelimiters = getConfig<string[]>('singleLineStringDelimiters', SINGLE_LINE_STRING_DELIMITERS);
 	}
 }
@@ -71,25 +74,31 @@ function parseLine(line: string) {
 			continue;
 		} // else
 		if (inBlockComment !== null) {
-			if (line.substring(i, i + blockCommentDelimiters[inBlockComment].length) === blockCommentDelimiters[inBlockComment]) {
+			const value = blockCommentDelimiters[inBlockComment];
+			if (line.substring(i, i + value.length) === value && value !== "") {
 				inBlockComment = null;
+				i += value.length - 1;
 			}
 			continue;
 		} // else
 		if (inMultiLineString !== -1) {
-			if (line.substring(i, i + multiLineStringDelimiters[inMultiLineString].length) === multiLineStringDelimiters[inMultiLineString]) {
+			const value = multiLineStringDelimiters[inMultiLineString];
+			if (line.substring(i, i + value.length) === value && value !== "") {
 				inMultiLineString = -1;
+				i += value.length - 1;
 			}
 			continue;
 		} // else
 		if (inSingleLineString !== -1) {
-			if (line.substring(i, i + singleLineStringDelimiters[inSingleLineString].length) === singleLineStringDelimiters[inSingleLineString]) {
+			const value = singleLineStringDelimiters[inSingleLineString];
+			if (line.substring(i, i + value.length) === value && value !== "") {
 				inSingleLineString = -1;
+				i += value.length - 1;
 			}
 			continue;
 		} // else
 		for (const value of inlineCommentDelimiters) {
-			if (line.substring(i, i + value.length) === value) {
+			if (line.substring(i, i + value.length) === value && value !== "") {
 				return Math.min(i, commentStart);
 			}
 		}
@@ -159,7 +168,7 @@ function drawCommentLines() {
 				renderOptions: {
 					after: {
 						color: color,
-						contentText: "_".repeat(start + maxCommentLineLength - line.length)
+						contentText: placeholder.repeat(start + maxCommentLineLength - line.length)
 					}
 				}
 			});

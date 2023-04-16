@@ -27,6 +27,7 @@ This extension contributes the following settings:
 * `comment-rulers.inlineCommentDelimiters`: The delimiters for inline comments.
 * `comment-rulers.maxCommentLineLength`: The maximum length of a comment line.
 * `comment-rulers.multiLineStringDelimiters`: The delimiters for multi-line strings (to ingore included comment delimiters).
+* `comment-rulers.placeholder`: The placeholder character to move the ruler (CANT BE A SPACE).
 * `comment-rulers.singleLineStringDelimiters`: The delimiters for single-line strings (to ingore included comment delimiters).
 
 ## Known Issues
@@ -39,14 +40,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 1.0.3 (Apr 16. 2023)
+### 1.0.4 (Apr 16. 2023)
 
-- Fixed ruler misplaced by using transparent underscores (color can be modified)
-- Fixed that block comments can be terminated by part of the first delimiter
-- Removed backtick from escapableChars, added backslash
-- Removed backtick from singleLineStringDelimiters
-- Added green background color to rulers (color can be modified)
-- Renamed style to border
+- Fixed that block comments can be started by part of the second delimiter
+- Made placeholder configurable
 
 See [changelog](CHANGELOG.md) for all changes.
 
