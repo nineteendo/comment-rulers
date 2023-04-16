@@ -30,6 +30,63 @@ This extension contributes the following settings:
 * `comment-rulers.placeholder`: The placeholder character to move the ruler (CANT BE A SPACE).
 * `comment-rulers.singleLineStringDelimiters`: The delimiters for single-line strings (to ingore included comment delimiters).
 
+### Examples
+
+To configure this extension for individual languages, use `Ctrl+Shift+P` and `>Preferences: Open User Settings (JSON)`.
+
+- Enabling the extension for Java, Python and Ruby:
+    ```jsonc
+    {
+        ...
+        // [language_1][language_2]...[language_n]
+        "[java][python][ruby]": {
+            "comment-rulers.enabled": true
+        }
+    }
+    ```
+
+- Configuring the extension for Ruby:
+    ```jsonc
+    {
+        ...
+        // [language]
+        "[ruby]": {
+            ...
+            "comment-rulers.blockCommentDelimiters": {
+                // start: end
+                "\n=begin": "\n=end",
+                "<<-DOC": "DOC\n",
+                "\n__END__\n": ""
+            },
+            "comment-rulers.inlineCommentDelimiters": [
+                // start
+                "#"
+            ],
+            "comment-rulers.multiLineStringDelimiters": [
+                // start & end
+                "\""
+            ],
+            "comment-rulers.singleLineStringDelimiters": [
+                // start & end
+                "'"
+            ]
+        }
+    }
+    ```
+
+- Messing with other settings:
+    ```jsonc
+    {
+        ...
+        "comment-rulers.backgroundColor": "black", // html_color_name
+        "comment-rulers.border": "2px dashed blue", // width border-style html_color_name
+        "comment-rulers.color": "red", // html_color_name
+        "comment-rulers.maxCommentLineLength": 60, // length
+        "comment-rulers.placeholder": "=", // character
+    }
+    ```
+    ![example](images/example.png)
+
 ## Known Issues
 
 - Comments in string templates aren't supported:
