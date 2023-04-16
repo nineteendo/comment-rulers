@@ -1,4 +1,5 @@
 package tests;
+
 class CommentTest1 {
     // A single line comment--------------------------------------------------------
 }
@@ -7,10 +8,7 @@ class CommentTest2 {
 }
 class CommentTest3 {
     /*------------------------------------------------------------------------------
-     * A multi-line block comment that is very long and has a lot of text to fill up
-     * the space. This is an example of a comment that might be too long to fit on a 
-     * single line, and needs to be broken up into multiple lines to make it more---
-     * readable and easier to understand.-------------------------------------------
+     * A multi-line block comment---------------------------------------------------
      *----------------------------------------------------------------------------*/
 }
 class CommentTest4 {
@@ -21,38 +19,23 @@ class CommentTest5 {
 }
 class CommentTest6 {
     /* A single line block comment */   /*------------------------------------------
-                                         * A multi-line block comment that is very long and has a lot of text to fill up
-                                         * the space. This is an example of a comment that might be too long to fit on a 
-                                         * single line, and needs to be broken up into multiple lines to make it more---
-                                         * readable and easier to understand.-------------------------------------------
+                                         * A multi-line block comment---------------------------------------------------
                                          *----------------------------------------------------------------------------*/
 }
 class CommentTest7 {
     /*------------------------------------------------------------------------------
-     * A multi-line block comment that is very long and has a lot of text to fill up
-     * the space. This is an example of a comment that might be too long to fit on a 
-     * single line, and needs to be broken up into multiple lines to make it more---
-     * readable and easier to understand.-------------------------------------------
+     * A multi-line block comment---------------------------------------------------
      */ // A single line comment----------------------------------------------------
 }
 class CommentTest8 {
     /*------------------------------------------------------------------------------
-     * A multi-line block comment that is very long and has a lot of text to fill up
-     * the space. This is an example of a comment that might be too long to fit on a 
-     * single line, and needs to be broken up into multiple lines to make it more---
-     * readable and easier to understand.-------------------------------------------
+     * A multi-line block comment---------------------------------------------------
      */ /* A single line block comment--------------------------------------------*/
 }
 class CommentTest9 {
     /*------------------------------------------------------------------------------
-     * A multi-line block comment that is very long and has a lot of text to fill up
-     * the space. This is an example of a comment that might be too long to fit on a 
-     * single line, and needs to be broken up into multiple lines to make it more---
-     * readable and easier to understand.-------------------------------------------
-     */ /*------------------------------------------
-         * Another multi-line block comment that is very long and has a lot of text to--
-         * fill up the space. This is an example of a comment that might be too long to-
-         * fit on a single line, and needs to be broken up into multiple lines to make--
-         * it more readable and easier to understand.-----------------------------------
+     * A multi-line block comment---------------------------------------------------
+     */ /*--------------------------------------------------------------------------
+         * Another multi-line block comment---------------------------------------------
          *----------------------------------------------------------------------------*/
 }

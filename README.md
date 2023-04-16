@@ -8,7 +8,7 @@ With Comment Rulers, you can ensure that your comments are concise and easy to r
 
 ## Features
 
-![features](videos/Features.gif)
+![features](videos/features.gif)
 
 ## Requirements
 
@@ -18,26 +18,35 @@ None
 
 This extension contributes the following settings:
 
+* `comment-rulers.blockCommentDelimiters`: The delimiters for block comments.
 * `comment-rulers.emPerChar`: The number of em units per character (BREAKS THE LAYOUT IF SET INCORRECTLY).
 * `comment-rulers.enabled`: Enable/disable Comment Rulers.
+* `comment-rulers.escapableChars`: Escapable delimiter characters.
+* `comment-rulers.inlineCommentDelimiters`: The delimiters for inline comments.
 * `comment-rulers.maxCommentLineLength`: The maximum length of a comment line.
-* `comment-rulers.multiLineCommentStrings`: The start and end strings for multi-line comments.
-* `comment-rulers.singleLineCommentStrings`: The strings that denote a single-line comment.
+* `comment-rulers.multiLineStringDelimiters`: The delimiters for multi-line strings (to ingore included comment delimiters).
+* `comment-rulers.singleLineStringDelimiters`: The delimiters for single-line strings (to ingore included comment delimiters).
 * `comment-rulers.style`: The CSS style for the rulers.
 
 ## Known Issues
 
-None... yet
+- Rounding errors can cause the rulers to be a few pixels misplaced:
+    ![bug](images/bug.png)
+- Comments in string templates aren't supported:
+    ```javascript
+    let num = 12;
+    let str = `${num /* comment */}`;
+     ```
 
 ## Release Notes
 
-### 1.0.0 (Apr 14. 2023)
+### 1.0.2 (Apr 16. 2023)
 
-Initial release of Comment Rulers
+Detecting strings (to ingore included comment delimiters).
+Escaping delimiters
+Fixed features.gif
 
-### 1.0.1 (Apr 14. 2023)
-
-Fixed Multi-line comments are messed up
+See [changelog](CHANGELOG.md) for all changes.
 
 ---
 

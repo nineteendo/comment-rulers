@@ -1,21 +1,21 @@
 {
 	"name": "comment-rulers",
 	"displayName": "Comment Rulers",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters. The extension adds a red line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length. With CommentRulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.",
 	"categories": [
 		"Visualization"
 	],
 	"homepage": "https://github.com/Nineteendo/comment-rulers#readme",
 	"bugs": {
-		"url" : "https://github.com/Nineteendo/comment-rulers/issues",
-		"email" : "nineteendo19d0@gmail.com"
+		"url": "https://github.com/Nineteendo/comment-rulers/issues",
+		"email": "nineteendo19d0@gmail.com"
 	},
 	"license": "GPL-3.0",
 	"author": {
-		"name" : "Nineteendo",
-		"email" : "nineteendo19d0@gmail.com",
-		"url" : "https://github.com/Nineteendo/"
+		"name": "Nineteendo",
+		"email": "nineteendo19d0@gmail.com",
+		"url": "https://github.com/Nineteendo/"
 	},
 	"publisher": "nineteendo",
 	"funding": {
@@ -58,6 +58,14 @@
 		"configuration": {
 			"title": "Comment Rulers",
 			"properties": {
+				"comment-rulers.blockCommentDelimiters": {
+					"type": "object",
+					"default": {
+						"/*": "*/"
+					},
+					"description": "The delimiters for block comments.",
+					"scope": "language-overridable"
+				},
 				"comment-rulers.emPerChar": {
 					"type": "number",
 					"default": 0.55,
@@ -70,26 +78,40 @@
 					"description": "Enable/disable Comment Rulers.",
 					"scope": "language-overridable"
 				},
+				"comment-rulers.escapableChars": {
+					"type": "string",
+					"default": "\"'`",
+					"description": "Escapable delimiter characters.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.inlineCommentDelimiters": {
+					"type": "array",
+					"default": [
+						"//"
+					],
+					"description": "The delimiters for inline comments.",
+					"scope": "language-overridable"
+				},
 				"comment-rulers.maxCommentLineLength": {
 					"type": "number",
 					"default": 80,
 					"description": "The maximum length of a comment line.",
 					"scope": "language-overridable"
 				},
-				"comment-rulers.multiLineCommentStrings": {
-					"type": "object",
-					"default": {
-						"/*": "*/"
-					},
-					"description": "The start and end strings for multi-line comments.",
+				"comment-rulers.multiLineStringDelimiters": {
+					"type": "array",
+					"default": [],
+					"description": "The delimiters for multi-line strings (to ingore included comment delimiters).",
 					"scope": "language-overridable"
 				},
-				"comment-rulers.singleLineCommentStrings": {
+				"comment-rulers.singleLineStringDelimiters": {
 					"type": "array",
 					"default": [
-						"//"
+						"\"",
+						"'",
+						"`"
 					],
-					"description": "The strings that denote a single-line comment.",
+					"description": "The delimiters for single-line strings (to ingore included comment delimiters).",
 					"scope": "language-overridable"
 				},
 				"comment-rulers.style": {
