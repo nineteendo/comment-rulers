@@ -1,43 +1,49 @@
 import * as vscode from 'vscode';
 
-// Iterface for objects with any strings
-interface StringObject {
+// Iterface for delimiters
+interface Delimiters {
 	[key: string]: string
 }
 
 // Constants
-const BACKGROUND_COLOR = "green";
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const BLOCK_COMMENT_DELIMITERS: StringObject = {"/*": "*/"};
-const BORDER = "1px solid green";
-const COLOR = "transparent";
 const DECORATION_TYPE = vscode.window.createTextEditorDecorationType({});
 const DECORATION_TYPE2 = vscode.window.createTextEditorDecorationType({});
+const DECORATION_TYPE3 = vscode.window.createTextEditorDecorationType({});
+const DECORATION_TYPE4 = vscode.window.createTextEditorDecorationType({});
+
+// Default settings
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const BLOCK_COMMENT_DELIMITERS: Delimiters = {"/*": "*/"};
 const ENABLED = false;
 const ESCAPABLE_CHARS = "\\\"'";
 const INLINE_COMMENT_DELIMTERS: string[] = ["//"];
 const MAX_COMMENT_LINE_LENGTH = 80;
-const MULTI_LINE_STRING_DELIMITERS: string[] = [];
-const PLACEHOLDER = "_";
-const SINGLE_LINE_STRING_DELIMITERS: string[] = ['"', "'"];
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const MULTI_LINE_STRING_DELIMITERS: Delimiters = {};
+const PLACEHOLDER_CHAR = "_";
+const PLACEHOLDER_COLOR = "transparent";
+const RULER_COLOR = "green";
+const RULER_WIDTH = "1px";
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const SINGLE_LINE_STRING_DELIMITERS: Delimiters = {'"': '"', "'": "'"};
 
 // Global settings
-let backgroundColor = BACKGROUND_COLOR;
 let blockCommentDelimiters = BLOCK_COMMENT_DELIMITERS;
-let border = BORDER;
-let color = COLOR;
 let enabled = ENABLED;
 let escapableChars = ESCAPABLE_CHARS;
 let inlineCommentDelimiters = INLINE_COMMENT_DELIMTERS;
 let maxCommentLineLength = MAX_COMMENT_LINE_LENGTH;
 let multiLineStringDelimiters = MULTI_LINE_STRING_DELIMITERS;
-let placeholder = PLACEHOLDER;
+let placeholderChar = PLACEHOLDER_CHAR;
+let placeholderColor = PLACEHOLDER_COLOR;
+let rulerColor = RULER_COLOR;
+let rulerWidth = RULER_WIDTH;
 let singleLineStringDelimiters = SINGLE_LINE_STRING_DELIMITERS;
 
 // Comment status
 let blockCommentStart = 0;
 let inBlockComment: string | null = null;
-let inMultiLineString = -1;
+let inMultiLineString: string | null = null;
 
 function activate(_: vscode.ExtensionContext) {
 	drawCommentLines();
@@ -49,28 +55,29 @@ function activate(_: vscode.ExtensionContext) {
 
 function updateSettings(languageId: string) {
 	for (let getConfig of [vscode.workspace.getConfiguration('comment-rulers').get, vscode.workspace.getConfiguration('comment-rulers', { languageId: languageId }).get]) {
-		backgroundColor = getConfig<string>('backgroundColor', BACKGROUND_COLOR);
-		blockCommentDelimiters = getConfig<StringObject>('blockCommentDelimiters', BLOCK_COMMENT_DELIMITERS);
-		border = getConfig<string>('border', BORDER);
-		color = getConfig<string>('color', COLOR);
+		blockCommentDelimiters = getConfig<Delimiters>('blockCommentDelimiters', BLOCK_COMMENT_DELIMITERS);
 		enabled = getConfig<boolean>('enabled', ENABLED);
 		escapableChars = getConfig<string>('escapableChars', ESCAPABLE_CHARS);
 		inlineCommentDelimiters = getConfig<string[]>('inlineCommentDelimiters', INLINE_COMMENT_DELIMTERS);
 		maxCommentLineLength = getConfig<number>('maxCommentLineLength', MAX_COMMENT_LINE_LENGTH);
-		multiLineStringDelimiters = getConfig<string[]>('multiLineStringDelimiters', MULTI_LINE_STRING_DELIMITERS);
-		placeholder = getConfig<string>('placeholder', PLACEHOLDER);
-		singleLineStringDelimiters = getConfig<string[]>('singleLineStringDelimiters', SINGLE_LINE_STRING_DELIMITERS);
+		multiLineStringDelimiters = getConfig<Delimiters>('multiLineStringDelimiters', MULTI_LINE_STRING_DELIMITERS);
+		placeholderChar = getConfig<string>('placeholderChar', PLACEHOLDER_CHAR);
+		placeholderColor = getConfig<string>('placeholderColor', PLACEHOLDER_COLOR);
+		rulerColor = getConfig<string>('rulerColor', RULER_COLOR);
+		rulerWidth = getConfig<string>('rulerWidth', RULER_WIDTH);
+		singleLineStringDelimiters = getConfig<Delimiters>('singleLineStringDelimiters', SINGLE_LINE_STRING_DELIMITERS);
 	}
 }
 
-function parseLine(line: string) {
+function parseLine(line: string) { // Line starts and ends with \n
 	let commentStart = Infinity;
-	let inSingleLineString = -1;
+	let inSingleLineString: string | null = null;
 	if (inBlockComment !== null) {
 		commentStart = blockCommentStart;
 	}
 	for (let i = 0; i < line.length; i++) {
-		if (line[i] === "\\" && escapableChars.includes(line[++i])) {
+		if (line[i] === "\\" && escapableChars.includes(line[i + 1])) {
+			i++;
 			continue;
 		} // else
 		if (inBlockComment !== null) {
@@ -81,18 +88,18 @@ function parseLine(line: string) {
 			}
 			continue;
 		} // else
-		if (inMultiLineString !== -1) {
+		if (inMultiLineString !== null) {
 			const value = multiLineStringDelimiters[inMultiLineString];
 			if (line.substring(i, i + value.length) === value && value !== "") {
-				inMultiLineString = -1;
+				inMultiLineString = null;
 				i += value.length - 1;
 			}
 			continue;
 		} // else
-		if (inSingleLineString !== -1) {
+		if (inSingleLineString !== null) {
 			const value = singleLineStringDelimiters[inSingleLineString];
 			if (line.substring(i, i + value.length) === value && value !== "") {
-				inSingleLineString = -1;
+				inSingleLineString = null;
 				i += value.length - 1;
 			}
 			continue;
@@ -115,25 +122,23 @@ function parseLine(line: string) {
 		if (inBlockComment !== null) {
 			continue;
 		} // else
-		for (let j = 0; j < multiLineStringDelimiters.length; j++) {
-			const value = multiLineStringDelimiters[j];
-			if (line.substring(i, i + value.length) !== value || value === "") {
+		for (const key in multiLineStringDelimiters) {
+			if (line.substring(i, i + key.length) !== key || key === "") {
 				continue;
 			}
-			inMultiLineString = j;
-			i += value.length - 1;
+			inMultiLineString = key;
+			i += key.length - 1;
 			break;
 		}
-		if (inMultiLineString !== -1) {
+		if (inMultiLineString !== null) {
 			continue;
 		} // else
-		for (let j = 0; j < singleLineStringDelimiters.length; j++) {
-			const value = singleLineStringDelimiters[j];
-			if (line.substring(i, i + value.length) !== value || value === "") {
+		for (const key in singleLineStringDelimiters) {
+			if (line.substring(i, i + key.length) !== key || key === "") {
 				continue;
 			}
-			inSingleLineString = j;
-			i += value.length - 1;
+			inSingleLineString = key;
+			i += key.length - 1;
 			break;
 		}
 	}
@@ -148,37 +153,62 @@ function drawCommentLines() {
 	if (!enabled) {
 		vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE, []);
 		vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE2, []);
+		vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE3, []);
+		vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE4, []);
 		return;
 	}
 	blockCommentStart = 0;
 	let decorations: vscode.DecorationOptions[] = [];
 	let decorations2: vscode.DecorationOptions[] = [];
+	let decorations3: vscode.DecorationOptions[] = [];
+	let decorations4: vscode.DecorationOptions[] = [];
 	const document = vscode.window.activeTextEditor.document;
 	inBlockComment = null;
-	inMultiLineString = -1;
+	inMultiLineString = null;
 	for (let i = 0; i < document.lineCount; i++) {
 		const line = document.lineAt(i).text;
 		let start = Math.max(0, parseLine("\n" + line + "\n") - 1);
 		if (start === Infinity) {
 			continue;
 		}
-		if (start + maxCommentLineLength > line.length) {
+		if (start > line.length) {
 			decorations.push({
-				range: new vscode.Range(i, line.length, i, start + maxCommentLineLength),
+				range: new vscode.Range(i, line.length, i, start),
 				renderOptions: {
 					after: {
-						color: color,
-						contentText: placeholder.repeat(start + maxCommentLineLength - line.length)
+						color: placeholderColor,
+						contentText: placeholderChar.repeat(start - line.length)
 					}
 				}
 			});
 		}
 		decorations2.push({
+			range: new vscode.Range(i, start, i, start),
+			renderOptions: {
+				after: {
+					backgroundColor: rulerColor,
+					border: `${rulerWidth} solid ${rulerColor}`,
+					contentText: ""
+				}
+			}
+		});
+		if (start + maxCommentLineLength > line.length) {
+			decorations3.push({
+				range: new vscode.Range(i, Math.max(start, line.length), i, start + maxCommentLineLength),
+				renderOptions: {
+					after: {
+						color: placeholderColor,
+						contentText: placeholderChar.repeat(start + maxCommentLineLength - Math.max(start, line.length))
+					}
+				}
+			});
+		}
+		decorations4.push({
 			range: new vscode.Range(i, start + maxCommentLineLength, i, start + maxCommentLineLength),
 			renderOptions: {
 				after: {
-					backgroundColor: backgroundColor,
-					border: border,
+					backgroundColor: rulerColor,
+					border: `${rulerWidth} solid ${rulerColor}`,
 					contentText: ""
 				}
 			}
@@ -186,6 +216,8 @@ function drawCommentLines() {
 	}
 	vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE, decorations);
 	vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE2, decorations2);
+	vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE3, decorations3);
+	vscode.window.activeTextEditor.setDecorations(DECORATION_TYPE4, decorations4);
 }
 
 export { activate };

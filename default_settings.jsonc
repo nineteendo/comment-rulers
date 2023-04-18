@@ -1,0 +1,163 @@
+{
+    // C#:
+    "[csharp]": {
+        "comment-rulers.multiLineStringDelimiters": {
+            "@\"": "\""
+        }
+    },
+    // CSS:
+    "[css]": {
+        "comment-rulers.inlineCommentDelimiters": [] // There are no inline comments
+    },
+    // Golang, Javascript & Typescript:
+    "[go][javascript][typescript]": {
+        "comment-rulers.multiLineStringDelimiters": {
+            "`": "`"
+        }
+    },
+    // HTML:
+    "[html]": {
+        "comment-rulers.blockCommentDelimiters": {
+            "<!": ">"
+        },
+        "comment-rulers.inlineCommentDelimiters": [], // There are no inline comments
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"": "\"",
+            "'": "'"
+        },
+        "comment-rulers.singleLineStringDelimiters": {} // There are no single line strings
+    },
+    // Java:
+    "[java]": {
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"\"\"": "\"\"\""
+        }
+    },
+    // Perl:
+    "[perl]": {
+        "comment-rulers.blockCommentDelimiters": {
+            "\n=begin": "\n=cut"
+        },
+        "comment-rulers.inlineCommentDelimiters": [
+            "#"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "`": "`",
+            "\"": "\"",
+            "'": "'"
+        },
+        "comment-rulers.singleLineStringDelimiters": {} // There are no single line strings
+    },
+    // PHP:
+    "[php]": {
+        "comment-rulers.inlineCommentDelimiters": [
+            "//",
+            "#"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "`": "`",
+            "\"": "\"",
+            "'": "'"
+        },
+        "comment-rulers.singleLineStringDelimiters": {} // There are no single line strings
+    },
+    // Python:
+    "[python]": {
+        "comment-rulers.blockCommentDelimiters": {
+            "\"\"\"": "\"\"\"" // Triple-double quoted strings are treated as docstrings and not strings
+        },
+        "comment-rulers.inlineCommentDelimiters": [
+            "#"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "'''": "'''"
+        }
+    },
+    // R:
+    "[r]": {
+        "comment-rulers.blockCommentDelimiters": {}, // There are no block comments
+        "comment-rulers.inlineCommentDelimiters": [
+            "#"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"": "\"",
+            "'": "'"
+        },
+        "comment-rulers.singleLineStringDelimiters": {} // There are no single line strings
+    },
+    // Ruby:
+    "[ruby]": {
+        "comment-rulers.blockCommentDelimiters": {
+            "\n=begin\n": "\n=end\n", // =begin & =end must appear by itself
+            "<<-DOC\n": "\nDOC\n", // <<-DOC and DOC should be at the end of the line
+            "\n__END__\n": "" // __END__ must appear by itself, this "block" comment can't be terminated
+        },
+        "comment-rulers.inlineCommentDelimiters": [
+            "#"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"": "\""
+        },
+        "comment-rulers.singleLineStringDelimiters": {
+            "'": "'"
+        }
+    },
+    // Rust:
+    "[rust]": {
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"": "\"",
+            "r#\"": "\"#"
+        },
+        "comment-rulers.singleLineStringDelimiters": {
+            "'": "'"
+        }
+    },
+    // SQL:
+    "[sql]": {
+        "comment-rulers.inlineCommentDelimiters": [
+            "\n#", // # must appear at the start of the line
+            "--"
+        ],
+        "comment-rulers.multiLineStringDelimiters": {
+            "`": "`",
+            "\"": "\"",
+            "'": "'"
+        },
+        "comment-rulers.singleLineStringDelimiters": {} // There are no single line strings
+    },
+    // Swift:
+    "[swift]": {
+        "comment-rulers.multiLineStringDelimiters": {
+            "\"\"\"": "\"\"\""
+        },
+        "comment-rulers.singleLineStringDelimiters": {
+            "\"": "\""
+        }
+    },
+    "[c][cpp][csharp][css][go][html][java][javascript][perl][php][python][r][ruby][rust][sql][swift][typescript]": {
+        "comment-rulers.enabled": true
+    },
+    "comment-rulers.blockCommentDelimiters": {
+        // start: end
+        "/*": "*/"
+    },
+    "comment-rulers.enabled": false,
+    "comment-rulers.escapableChars": "\\\"'",
+    "comment-rulers.inlineCommentDelimiters": [
+        // start
+        "//"
+    ],
+    "comment-rulers.maxCommentLineLength": 80,
+    "comment-rulers.multiLineStringDelimiters": {
+        // start: end
+    },
+    "comment-rulers.placeholderChar": "_",
+    "comment-rulers.placeholderColor": "transparent", // CSS color
+    "comment-rulers.rulerColor": "green", // CSS color
+    "comment-rulers.rulerWidth": "1px", // border-width
+    "comment-rulers.singleLineStringDelimiters": {
+        // start: end
+        "\"": "\"",
+        "'": "'"
+    }
+}

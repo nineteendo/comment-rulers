@@ -1,7 +1,7 @@
 {
 	"name": "comment-rulers",
 	"displayName": "Comment Rulers",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters. The extension adds a red line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length. With CommentRulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.",
 	"categories": [
 		"Visualization"
@@ -58,12 +58,6 @@
 		"configuration": {
 			"title": "Comment Rulers",
 			"properties": {
-				"comment-rulers.backgroundColor": {
-					"type": "string",
-					"default": "green",
-					"description": "The background color of the rulers.",
-					"scope": "language-overridable"
-				},
 				"comment-rulers.blockCommentDelimiters": {
 					"type": "object",
 					"default": {
@@ -72,22 +66,10 @@
 					"description": "The delimiters for block comments.",
 					"scope": "language-overridable"
 				},
-				"comment-rulers.border": {
-					"type": "string",
-					"default": "1px solid green",
-					"description": "The CSS border style of the rulers.",
-					"scope": "language-overridable"
-				},
-				"comment-rulers.color": {
-					"type": "string",
-					"default": "transparent",
-					"description": "The color of the placeholder to move the ruler.",
-					"scope": "language-overridable"
-				},
 				"comment-rulers.enabled": {
 					"type": "boolean",
 					"default": false,
-					"description": "Enable/disable Comment Rulers.",
+					"description": "Enable/disable drawing comment rulers.",
 					"scope": "language-overridable"
 				},
 				"comment-rulers.escapableChars": {
@@ -111,23 +93,41 @@
 					"scope": "language-overridable"
 				},
 				"comment-rulers.multiLineStringDelimiters": {
-					"type": "array",
-					"default": [],
+					"type": "object",
+					"default": {},
 					"description": "The delimiters for multi-line strings (to ingore included comment delimiters).",
 					"scope": "language-overridable"
 				},
-				"comment-rulers.placeholder": {
+				"comment-rulers.placeholderChar": {
 					"type": "string",
 					"default": "_",
-					"description": "The placeholder character to move the ruler (CANT BE A SPACE).",
+					"description": "The placeholder character to align the rulers (CANT BE A SPACE).",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.placeholderColor": {
+					"type": "string",
+					"default": "transparent",
+					"description": "The CSS color of the placeholder character.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.rulerColor": {
+					"type": "string",
+					"default": "green",
+					"description": "The CSS color of the rulers.",
+					"scope": "language-overridable"
+				},
+				"comment-rulers.rulerWidth": {
+					"type": "string",
+					"default": "1px",
+					"description": "The CSS border-width of the rulers.",
 					"scope": "language-overridable"
 				},
 				"comment-rulers.singleLineStringDelimiters": {
-					"type": "array",
-					"default": [
-						"\"",
-						"'"
-					],
+					"type": "object",
+					"default": {
+						"\"": "\"",
+						"'": "'"
+					},
 					"description": "The delimiters for single-line strings (to ingore included comment delimiters).",
 					"scope": "language-overridable"
 				}

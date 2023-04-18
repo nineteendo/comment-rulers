@@ -29,3 +29,11 @@ All notable changes to the "comment-rulers" extension will be documented in this
 
 - Fixed that block comments can be started by part of the second delimiter
 - Made placeholder configurable
+
+### 1.0.5 (Apr 18. 2023)
+
+- Made end delimiters of strings configurable
+- Added ruler where the comment line should start
+- Added examples
+- Added default configuration for top 20 most popular programming languages
+- Added comments tests for top 20 most popular programming languages

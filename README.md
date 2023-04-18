@@ -1,13 +1,14 @@
 # Comment Rulers
 
-Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified length by visualizing where the comment line length reaches 80 characters.
+Comment Rulers is a Visual Studio Code extension that helps you keep your code's comments within a specified range by visualizing where the comment lines should start and end.
 
-The extension adds a green line at the end of the 80th character position of each comment line, allowing you to easily identify and adjust comments that exceed the desired length.
+The extension adds green lines at the first and 80th character positions, allowing you to easily identify and adjust comments that aren't in the desired range.
 
 With Comment Rulers, you can ensure that your comments are concise and easy to read, improving the readability and maintainability of your codebase.
 
 ## Features
 
+Here's an example of what Comment Rulers looks like in action:
 ![features](videos/features.gif)
 
 ## Requirements
@@ -16,18 +17,18 @@ None
 
 ## Extension Settings
 
-This extension contributes the following settings:
+This extension contributes the following settings (which can be overwritten for every programming language):
 
-* `comment-rulers.backgroundColor`: The background color of the rulers.
 * `comment-rulers.blockCommentDelimiters`: The delimiters for block comments.
-* `comment-rulers.border`: The CSS border style of the rulers.
-* `comment-rulers.color`: The color of the underscores to move the ruler.
 * `comment-rulers.enabled`: Enable/disable drawing comment rulers.
 * `comment-rulers.escapableChars`: Escapable delimiter characters.
 * `comment-rulers.inlineCommentDelimiters`: The delimiters for inline comments.
 * `comment-rulers.maxCommentLineLength`: The maximum length of a comment line.
 * `comment-rulers.multiLineStringDelimiters`: The delimiters for multi-line strings (to ingore included comment delimiters).
-* `comment-rulers.placeholder`: The placeholder character to move the ruler (CANT BE A SPACE).
+* `comment-rulers.placeholderChar`: The placeholder character to align the rulers (CANT BE A SPACE).
+* `comment-rulers.placeholderColor`: The CSS color of the placeholder character.
+* `comment-rulers.rulerColor`: The CSS color of the rulers.
+* `comment-rulers.rulerWidth`: The CSS border-width of the rulers.
 * `comment-rulers.singleLineStringDelimiters`: The delimiters for single-line strings (to ingore included comment delimiters).
 
 ### Examples
@@ -37,70 +38,66 @@ To configure this extension for individual languages, use `Ctrl+Shift+P` and `>P
 - Enabling the extension for Java, Python and Ruby:
     ```jsonc
     {
-        ...
         // [language_1][language_2]...[language_n]
         "[java][python][ruby]": {
             "comment-rulers.enabled": true
         }
     }
     ```
+    ![get_started](videos/get_started.gif)
 
-- Configuring the extension for Ruby:
-    ```jsonc
-    {
-        ...
-        // [language]
-        "[ruby]": {
-            ...
-            "comment-rulers.blockCommentDelimiters": {
-                // start: end
-                "\n=begin": "\n=end",
-                "<<-DOC": "DOC\n",
-                "\n__END__\n": ""
-            },
-            "comment-rulers.inlineCommentDelimiters": [
-                // start
-                "#"
-            ],
-            "comment-rulers.multiLineStringDelimiters": [
-                // start & end
-                "\""
-            ],
-            "comment-rulers.singleLineStringDelimiters": [
-                // start & end
-                "'"
-            ]
-        }
-    }
-    ```
+- [Default settings for the top 20 most popular programming languages](default_settings.jsonc)
+
+- [Comment tests for the top 20 most popular programming languages](comment/tests/)
 
 - Messing with other settings:
     ```jsonc
     {
-        ...
-        "comment-rulers.backgroundColor": "black", // html_color_name
-        "comment-rulers.border": "2px dashed blue", // width border-style html_color_name
-        "comment-rulers.color": "red", // html_color_name
-        "comment-rulers.maxCommentLineLength": 60, // length
-        "comment-rulers.placeholder": "=", // character
+        "comment-rulers.maxCommentLineLength": 60,
+        "comment-rulers.placeholderChar": "=",
+        "comment-rulers.placeholderColor": "blue", // CSS color
+        "comment-rulers.rulerColor": "red", // CSS color
+        "comment-rulers.rulerWidth": "2px" // border-width
     }
     ```
-    ![example](images/example.png)
+    ![custom_settings](images/custom_settings.png)
 
 ## Known Issues
+
+- Rulers can be misplaced:
+    ![ruler_misplacement](images/ruler_misplacement.png)
 
 - Comments in string templates aren't supported:
     ```javascript
     let num = 12;
     let str = `${num /* comment */}`;
-     ```
+    ```
+    Expected:
+    ![string_template_undetected](images/string_template_detected.png)
+
+- Delimiters can't be configured to be just indented:
+    This heredoc is terminated early, since it's not possible to configure that DOC can only be indented <<-DOC (vscode is wrong here):
+    ```ruby
+    <<-DOC
+    A heredoc ended with DOC
+    DOC
+    ```
+    Expected:
+    ![heredoc_terminated_early](images/heredoc_terminated_correctly.png)
+
+- Incorrect tab indentation isn't handled properly:
+    ![incorrect_tab_indentation](images/incorrect_tab_indentation.png)
+
 
 ## Release Notes
 
-### 1.0.4 (Apr 16. 2023)
+### 1.0.5 (Apr 18. 2023)
 
-- Fixed that block comments can be started by part of the second delimiter
-- Made placeholder configurable
+- Made end delimiters of strings configurable
+- Added ruler where the comment line should start
+- Added examples
+- Added default configuration for top 20 most popular programming languages
+- Added comments tests for top 20 most popular programming languages
 
 See [changelog](CHANGELOG.md) for all changes.
 

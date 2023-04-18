@@ -6,6 +6,27 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "java",
+			"name": "CommentTests",
+			"request": "launch",
+			"mainClass": "comment.tests.CommentTests",
+			"projectName": "comment-rulers_fdcec4de"
+		},
+		{
+			"type": "java",
+			"name": "CommentTests",
+			"request": "launch",
+			"mainClass": "comments.tests.CommentTests",
+			"projectName": "comment-rulers_fdcec4de"
+		},
+		{
+			"type": "java",
+			"name": "comment_tests",
+			"request": "launch",
+			"mainClass": "tests.src.tests.comment_tests",
+			"projectName": "comment-rulers_fdcec4de"
+		},
+		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
